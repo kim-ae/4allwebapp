@@ -14,7 +14,7 @@ public class ModelAndView{
         this.view = view;
     }
     
-    public static ModelAndView getHtmlResponse(String view, Map<String, Object> model){
+    public static ModelAndView getSimpleModelAndView(String view, Map<String, Object> model){
         return new ModelAndView(view, model);
     }
 }
