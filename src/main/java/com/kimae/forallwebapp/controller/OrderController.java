@@ -23,8 +23,6 @@ public class OrderController implements Controller {
     public ModelAndView home(){
         Map<String, Object> model = new HashMap<>();
         model.put("test", "kim :)");
-        WebService ws= new WebService();
-        ws.execGet();
         return ModelAndView.getSimpleModelAndView("order", model);
     }
     
