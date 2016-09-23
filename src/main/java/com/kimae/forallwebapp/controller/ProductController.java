@@ -10,11 +10,10 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
 import com.kimae.forallwebapp.configuration.ModelAndView;
-import com.kimae.forallwebapp.configuration.ThymeleafProcessor;
 import com.kimae.forallwebapp.infrastructure.MapFactory;
 import com.kimae.forallwebapp.repository.ProductRepository;
 
-@Path("product")
+@Path("products")
 public class ProductController extends Controller {
 
     @Inject

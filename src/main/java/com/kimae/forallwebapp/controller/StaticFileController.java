@@ -15,19 +15,31 @@ import javax.ws.rs.core.Context;
 
 @Path("/static")
 public class StaticFileController {
-	
-	@Context
-	private ServletContext context;
-	
-    @Path("{filename}")
+
+    @Context
+    private ServletContext context;
+
+    @Path("/scripts/{filename}")
     @GET
-    public InputStream getIndex(@PathParam("filename") String fileName){
-	    File index = new File(context.getRealPath("/webapp/static/" + fileName));
-	    try {
-	        return new FileInputStream(index);
-	    } catch (FileNotFoundException e) {
-	        String s = "ERROR";
-	        return new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8));
-	    } 
+    public InputStream getJs(@PathParam("filename") String fileName) {
+        File index = new File(context.getRealPath("/static/scripts/" + fileName));
+        try {
+            return new FileInputStream(index);
+        } catch (FileNotFoundException e) {
+            String s = "ERROR";
+            return new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8));
+        }
+    }
+    
+    @Path("/content/{filename}")
+    @GET
+    public InputStream getCss(@PathParam("filename") String fileName) {
+        File index = new File(context.getRealPath("/static/content/" + fileName));
+        try {
+            return new FileInputStream(index);
+        } catch (FileNotFoundException e) {
+            String s = "ERROR";
+            return new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8));
+        }
     }
 }
