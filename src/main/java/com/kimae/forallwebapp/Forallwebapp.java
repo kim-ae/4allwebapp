@@ -8,6 +8,7 @@ import javax.ws.rs.core.Application;
 
 import com.kimae.forallwebapp.configuration.ThymeleafProcessor;
 import com.kimae.forallwebapp.controller.OrderController;
+import com.kimae.forallwebapp.controller.StaticFileController;
 
 @ApplicationPath("/")
 public class Forallwebapp extends Application {
@@ -27,7 +28,7 @@ public class Forallwebapp extends Application {
     public Set<Class<?>> getClasses() {        
         Set<Class<?>> s = new HashSet<Class<?>>();
         s.add(OrderController.class);
-        
+        s.add(StaticFileController.class);
         return s;
     }
 }
