@@ -3,9 +3,10 @@
 <head th:fragment="styles">
 </head>
 <head th:fragment="scripts">
+    <script type="text/javascript" th:src="@{/scripts/order.js}"></script>
 </head>
 <body th:fragment="page">
-<div th:text="${test}"></div>
+    <div class="order-container products" th:attr="data-product-source=@{/products/get-all}"></div>
 
     <!-- <form class="login-form" name="login-form" method="post"
         th:action="@{/login.json}">

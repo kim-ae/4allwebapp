@@ -1,8 +1,6 @@
 package com.kimae.forallwebapp.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -13,20 +11,23 @@ import javax.ws.rs.core.MediaType;
 
 import com.kimae.forallwebapp.configuration.ModelAndView;
 import com.kimae.forallwebapp.configuration.ThymeleafProcessor;
+import com.kimae.forallwebapp.infrastructure.MapFactory;
+import com.kimae.forallwebapp.repository.ProductRepository;
 
-@Path("/order")
-public class OrderController extends Controller {
+@Path("product")
+public class ProductController extends Controller {
+
+    @Inject
+    private ProductRepository productRepository;
     
     @GET
+    @Path("/get-all")
     @Produces(MediaType.TEXT_HTML)
-    public String home(){
-        Map<String, Object> model = new HashMap<>();
+    public String getProducts(){
         try {
-            return toHtml(ModelAndView.getSimpleModelAndView("order", model), true);
+            return toHtml(ModelAndView.getSimpleModelAndView("product-list", MapFactory.createOf("products", (Object)productRepository.findAll())), false);
         } catch (WebApplicationException | IOException e) {
             return "vish";
         }
     }
-    
-
 }

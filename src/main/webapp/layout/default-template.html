@@ -13,14 +13,12 @@
     View specific styles
     <link rel="stylesheet" type="text/css" th:href="@{/styles/login-layout.css}" />
     <th:block th:include="${view} :: styles" />
-    Common scripts
-    <script type="text/javascript" th:src="@{/scripts/jquery-2.1.3.min.js}"></script>
-    <script type="text/javascript" th:src="@{/scripts/velocity.min.js}"></script>
+    Common scripts-->
+    <!-- <script type="text/javascript" th:src="@{/scripts/velocity.min.js}"></script>
     <script type="text/javascript" th:src="@{/scripts/commonts.js}"></script>
     <script type="text/javascript" th:src="@{/scripts/form.js}"></script>
     View specific scripts
-    <script type="text/javascript" th:src="@{/scripts/login.js}"></script>
-    <th:block th:include="${view} :: scripts" />  -->
+    <script type="text/javascript" th:src="@{/scripts/login.js}"></script> -->
 </head>
 <body>
     <div class="body">
@@ -30,5 +28,7 @@
             <div th:replace="${view} :: page"></div>
         </div>
     </div>
+    <script type="text/javascript" th:src="@{/scripts/jquery.js}"></script>
+    <th:block th:include="${view} :: scripts" /> 
 </body>
 </html>

@@ -1,9 +1,9 @@
-package com.kimae.forallwebapp.controller;
+package com.kimae.forallwebapp.configuration;
 
 import java.io.IOException;
 import java.util.Map.Entry;
 
-import javax.ejb.Local;
+import javax.enterprise.context.RequestScoped;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.WebApplicationException;
@@ -14,21 +14,19 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
-import com.kimae.forallwebapp.configuration.ModelAndView;
-
-@Local
-public abstract class Controller {
+@RequestScoped
+public class ThymeleafProcessor {
     //private static Logger logger = LoggerFactory.getLogger(ThymeleafConfiguration.class);
     @Context
     private HttpServletRequest httpRequest;
     @Context
     private HttpServletResponse httpResponse;
-    private TemplateEngine engine;
-    public Controller(){
+    
+    private static TemplateEngine engine;
+    public ThymeleafProcessor(){
         TemplateResolver resolver = new ServletContextTemplateResolver();
-        resolver.setPrefix("/layout/");
+        resolver.setPrefix("layout/");
         resolver.setSuffix(".html");
-        resolver.setTemplateMode("HTML5");
         resolver.setCacheable(false);
         engine = new TemplateEngine();
         engine.setTemplateResolver(resolver);

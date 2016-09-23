@@ -21,8 +21,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 public class WebService {
 
-    private final String rootUrl; //= "getProdutos";
-    private ObjectMapper mapper;
+    private final String rootUrl;
+    private final ObjectMapper mapper = new ObjectMapper();
     
     private WebService(String rootUrl){
         this.rootUrl = rootUrl;
@@ -55,7 +55,6 @@ public class WebService {
     }
 
     private void initializeObjectMapper(){
-        this.mapper = new ObjectMapper();
         this.mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         this.mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         this.mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);

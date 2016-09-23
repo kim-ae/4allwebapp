@@ -6,7 +6,7 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-import com.kimae.forallwebapp.configuration.ThymeleafConfiguration;
+import com.kimae.forallwebapp.configuration.ThymeleafProcessor;
 import com.kimae.forallwebapp.controller.OrderController;
 
 @ApplicationPath("/")
@@ -14,7 +14,7 @@ public class Forallwebapp extends Application {
     
     private Set<Object> singletons = new HashSet<Object>();
     public Forallwebapp() {
-        singletons.add(new ThymeleafConfiguration());
+        singletons.add(new ThymeleafProcessor());
     }
 
     @Override
