@@ -26,6 +26,10 @@ public class OrderStuff {
         return order.getId_pedido();
     }
     
+    public Order getOrder(Integer id){
+        return repository.findById(id);
+    }
+    
     private Order createOrder(List<OrderItem> itens){
         return Order.defaultOrderSerializable(itens);
     }
