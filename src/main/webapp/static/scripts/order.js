@@ -16,6 +16,16 @@ function decrement_quantity(element){
 		$element.find('.operation-icons span').html(quantity)
 	}
 }
+function getOrderItens(){
+	list = $('.order-list li').get().map(function(obj){
+		return {
+			preco: $(obj).data('price'),
+			quantidade: $(obj).data('quantity'),
+			sku: $(obj).data('id')
+		}
+	})
+	return list;
+}
 $(document).ready(function(){
 
 		var dom = {
@@ -35,7 +45,8 @@ $(document).ready(function(){
 			})
 			if(alreadyRegistered == undefined){
 				$('.order-list').append($('.order-element-li').html().replace('{{PRODUCT_NAME}}',$that.text())
-																														 .replace('{{PRODUCT_ID}}', $that.data('id')));
+																														 .replace('{{PRODUCT_ID}}', $that.data('id'))
+																													   .replace('{{PRODUCT_PRICE}}', $that.data('price')));
 			}else{
 				increment_quantity(alreadyRegistered)
 			}
@@ -50,6 +61,14 @@ $(document).ready(function(){
 		e.preventDefault();
 		$('#myModal').modal('toggle').one('click', '#confirm', function(){
 			decrement_quantity(element)
+		})
+	})
+	$('.request-order').click(function(){
+		$.ajax({
+			url: $('.order-list').data('action'),
+			contentType: "application/json; charset=utf-8",
+			method: $('.order-list').data('method'),
+			data: JSON.stringify(getOrderItens())
 		})
 	})
 

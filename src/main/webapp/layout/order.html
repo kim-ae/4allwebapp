@@ -1,24 +1,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="styles">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/content/order.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/static/content/order.css}"></link>
 </head>
 <head th:fragment="scripts">
     <script type="text/javascript" th:src="@{/static/scripts/order.js}"></script>
 </head>
 <section th:fragment="page" class="order-page">
-    <input class="order-page__search" type="input" placeholder="Buscar..."></input>
+    <input class="order-page__search" type="text" placeholder="Buscar..."></input>
     <div class="order-boxes">
         <div class="procuts-selection">
             <div class="order-page__container products" th:attr="data-products-source=@{/products/get-all}"></div>
         </div>
         <div class="order-management">
             <div class="order-page__container">
-                <ul class="order-list">
+                <ul th:attr="data-action=@{/order/try-to-order},data-method='POST'" class="order-list">
                 </ul>
             </div>
         </div>
     </div>
+    <button class="request-order"> Fazer o Pedido </button>
     <div id="myModal" class="modal fade" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -35,15 +36,15 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    <script class="order-element-li">
-      <li data-quantity='1' data-id='{{PRODUCT_ID}}'>
+    <div class="order-element-li hide">
+      <li data-quantity='1' data-price='{{PRODUCT_PRICE}}' data-id='{{PRODUCT_ID}}'>
           {{PRODUCT_NAME}}
-          <span class='operation-icons'>
+          <div class='operation-icons'>
               <i class='fa fa-minus-square'></i>
               <span>1</span>
               <i class='fa fa-plus-square'></i>
-           </span>
+           </div>
       </li>
-    </script>
+    </div>
 </section>
 </html>

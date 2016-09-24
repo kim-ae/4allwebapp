@@ -1,6 +1,6 @@
 package com.kimae.forallwebapp.controller;
 
-import java.io.IOException;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -14,7 +14,7 @@ import com.kimae.forallwebapp.infrastructure.MapFactory;
 import com.kimae.forallwebapp.repository.ProductRepository;
 
 @Path("products")
-public class ProductController extends Controller {
+public class ProductController extends HtmlController {
 
     @Inject
     private ProductRepository productRepository;
@@ -23,9 +23,10 @@ public class ProductController extends Controller {
     @Path("/get-all")
     @Produces(MediaType.TEXT_HTML)
     public String getProducts(){
+        Map<String, Object> model = MapFactory.createOf("products", (Object)productRepository.findAll());
         try {
-            return toHtml(ModelAndView.getSimpleModelAndView("product-list", MapFactory.createOf("products", (Object)productRepository.findAll())), false);
-        } catch (WebApplicationException | IOException e) {
+            return getHtmlEngine().toHtml(ModelAndView.getSimpleModelAndView("product-list", model), getRequest(), getResponse());
+        } catch (WebApplicationException e) {
             return "vish";
         }
     }

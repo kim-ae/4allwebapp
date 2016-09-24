@@ -9,7 +9,6 @@ public class Product {
     private Integer sku;
     private String descricao;
 
-
     public Double getPreco() {
         return preco;
     }

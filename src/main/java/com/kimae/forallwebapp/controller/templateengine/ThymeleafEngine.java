@@ -1,14 +1,14 @@
-package com.kimae.forallwebapp.controller;
+package com.kimae.forallwebapp.controller.templateengine;
 
-import java.io.IOException;
 import java.util.Map.Entry;
 
-import javax.ejb.Local;
+import javax.annotation.PostConstruct;
+import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Context;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
@@ -16,15 +16,13 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 
 import com.kimae.forallwebapp.configuration.ModelAndView;
 
-@Local
-public abstract class Controller {
-    //private static Logger logger = LoggerFactory.getLogger(ThymeleafConfiguration.class);
-    @Context
-    private HttpServletRequest httpRequest;
-    @Context
-    private HttpServletResponse httpResponse;
+@Stateless
+public class ThymeleafEngine implements HtmlEngine {
+    private static Logger logger = LoggerFactory.getLogger(ThymeleafEngine.class);
     private TemplateEngine engine;
-    public Controller(){
+    
+    @PostConstruct
+    public void initializeEngine(){
         TemplateResolver resolver = new ServletContextTemplateResolver();
         resolver.setPrefix("/layout/");
         resolver.setSuffix(".html");
@@ -32,16 +30,19 @@ public abstract class Controller {
         resolver.setCacheable(false);
         engine = new TemplateEngine();
         engine.setTemplateResolver(resolver);
+        logger.info("Thymeleaf template engine initialized");
     }
 
-    public String toHtml(ModelAndView response, boolean usesTemplate) throws IOException, WebApplicationException {
+    @Override
+    public String toHtml(ModelAndView view, HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
         WebContext context = new WebContext(httpRequest, httpResponse, httpRequest.getServletContext());
-        for(Entry<String, Object> b : response.model.entrySet()){
+        for(Entry<String, Object> b : view.getModel().entrySet()){
             context.setVariable(b.getKey(), b.getValue());
         }
-        if(usesTemplate){
-            context.setVariable("view", response.view);
+        if(view.usesTemplate()){
+            context.setVariable("view", view.getView());
         }
-        return engine.process(usesTemplate ? "default-template" : response.view, context);
+        return engine.process(view.usesTemplate() ? view.getTemplate(): view.getView(), context);
     }
+
 }
