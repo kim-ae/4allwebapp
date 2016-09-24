@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:th="http://www.thymeleaf.org">
     <ul>
-        <li th:each="product : ${products}" th:text="${product.nome}"></li>
+        <li th:each="product : ${products}" th:attr="data-id=${product.getId_produto()}" th:text="${product.nome}"></li>
     </ul>
 </html>

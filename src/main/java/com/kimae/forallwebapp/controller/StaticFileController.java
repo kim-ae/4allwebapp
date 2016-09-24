@@ -31,7 +31,7 @@ public class StaticFileController {
         }
     }
     
-    @Path("/content/{filename}")
+    @Path("/content/{filename: .+}")
     @GET
     public InputStream getCss(@PathParam("filename") String fileName) {
         File index = new File(context.getRealPath("/static/content/" + fileName));

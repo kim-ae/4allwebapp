@@ -13,19 +13,27 @@
   background: white;
   margin-right: 30px;
 }
-
+.operation-icons > *{
+  margin-left: 10px;
+}
+.order-list > li{
+  cursor: default !important;
+}
+.order-list i{
+  cursor: pointer;
+}
 .order-page__search{
     width: 400px;
     border: 1px solid #d6d6d6;
     padding: 10px 5px;
     border-radius: 1px;
 }
-.order-page__container.products > ul{
+.order-page__container > ul{
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
-.order-page__container.products li{
+.order-page__container li{
     padding: 8px 10px;
     border-bottom: 1px solid #d6d6d6;
     cursor: pointer;
@@ -33,6 +41,11 @@
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+ */
 }
+.order-page__container li >.operation-icons{
+  display: inline-block;
+  float: right;s
+}
+
 .order-page__container.products li:last-child{
   border-bottom: 0;
 }
