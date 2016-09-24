@@ -19,7 +19,7 @@ public class StaticFileController {
     @Context
     private ServletContext context;
 
-    @Path("/scripts/{filename}")
+    @Path("/scripts/{filename: .+}")
     @GET
     public InputStream getJs(@PathParam("filename") String fileName) {
         File index = new File(context.getRealPath("/static/scripts/" + fileName));

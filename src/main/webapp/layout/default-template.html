@@ -3,6 +3,8 @@
     xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Order page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/static/content/bootstrap/bootstrap.min.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/static/content/base.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/static/content/font-awesome-4.6.3/css/font-awesome.min.css}" />
     <th:block th:include="${view} :: styles" />
@@ -10,6 +12,7 @@
 <body>
     <th:block th:replace="${view} :: page"></th:block>
     <script type="text/javascript" th:src="@{/static/scripts/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/static/scripts/bootstrap/bootstrap.min.js}"></script>
     <th:block th:include="${view} :: scripts" />
 </body>
 </html>

@@ -1,13 +1,24 @@
-var ORDERED_PRODUCT_LI = "<li data-quantity='1' data-id='{{PRODUCT_ID}}'>{{PRODUCT_NAME}}<span class='operation-icons'><i class='fa fa-minus-square'></i><span>1</span><i class='fa fa-plus-square'></i></span></li>"
 function increment_quantity(element){
-		$element = $(element)
-		quantity = $element.data('quantity')
-		new_quantity = quantity + 1
-		$element.data('quantity', new_quantity)
-		$element.find('.operation-icons span').html(new_quantity)
+		var $element = $(element)
+		var quantity = $element.data('quantity')
+		quantity = quantity + 1
+		$element.data('quantity', quantity)
+		$element.find('.operation-icons span').html(quantity)
+}
+function decrement_quantity(element){
+	var $element = $(element)
+	var quantity = $element.data('quantity')
+	quantity = quantity - 1
+	if(quantity === 0){
+		$element.remove()
+	}else{
+		$element.data('quantity', quantity)
+		$element.find('.operation-icons span').html(quantity)
+	}
 }
 $(document).ready(function(){
-		dom = {
+
+		var dom = {
 			products: $('.products'),
 			search: $('.order-page__search')
 		};
@@ -18,13 +29,13 @@ $(document).ready(function(){
 	}).done(function(response){
 		dom.products.html(response);
 		dom.products.find('li').click(function(){
-			$that = $(this)
-			alreadyRegistered = $('.order-list').find('li').get().find(function(element){
+			var $that = $(this)
+			var alreadyRegistered = $('.order-list').find('li').get().find(function(element){
 				return $(element).data('id') === $that.data('id')
 			})
 			if(alreadyRegistered == undefined){
-				$('.order-list').append(ORDERED_PRODUCT_LI.replace('{{PRODUCT_NAME}}',$(this).text())
-																									.replace('{{PRODUCT_ID}}', $(this).data('id')));
+				$('.order-list').append($('.order-element-li').html().replace('{{PRODUCT_NAME}}',$that.text())
+																														 .replace('{{PRODUCT_ID}}', $that.data('id')));
 			}else{
 				increment_quantity(alreadyRegistered)
 			}
@@ -32,16 +43,22 @@ $(document).ready(function(){
 	});
 
 	$('body').on('click', 'i.fa.fa-plus-square', function(){
-			element = $(this).closest('li');
+			var element = $(this).closest('li');
 			increment_quantity(element);
+	}).on('click', 'i.fa.fa-minus-square', function(e){
+		var element = $(this).closest('li')
+		e.preventDefault();
+		$('#myModal').modal('toggle').one('click', '#confirm', function(){
+			decrement_quantity(element)
+		})
 	})
 
 	dom.search.keyup(function(){
-			$that = $(this);
+			var $that = $(this);
 			dom.products.find('li').each(function(element, value){
-				$element = $(value);
-				product_name = $element.text().toLowerCase();
-				input_text = $that.val().toLowerCase();
+				var $element = $(value);
+				var product_name = $element.text().toLowerCase();
+				var input_text = $that.val().toLowerCase();
 				$element.toggle(product_name.search(input_text) !== -1);
 			})
 	});
