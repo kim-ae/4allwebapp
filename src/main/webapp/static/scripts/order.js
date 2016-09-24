@@ -69,6 +69,8 @@ $(document).ready(function(){
 			contentType: "application/json; charset=utf-8",
 			method: $('.order-list').data('method'),
 			data: JSON.stringify(getOrderItens())
+		}).fail(function(response){
+			new Alert(response.responseText, '.order-page__alert');
 		})
 	})
 

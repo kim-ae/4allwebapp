@@ -17,11 +17,13 @@ public class OrderStuff {
     @Inject
     private OrderRepository repository;
     
-    public OrderStatus tryToOrder(List<OrderItem> itens){
-        if(new Random().nextBoolean()){
-            repository.save(createOrder(itens));
+    
+    public Integer tryToOrder(List<OrderItem> itens) throws OrderBusinessException{
+        Order order = createOrder(itens);
+        if(!new Random().nextBoolean() || !repository.save(order)){
+            throw new OrderBusinessException(OrderStatus.UNEXPECTED_ERROR);
         }
-        return OrderStatus.OK;
+        return order.getId_pedido();
     }
     
     private Order createOrder(List<OrderItem> itens){

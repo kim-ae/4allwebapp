@@ -3,6 +3,12 @@
 }
 .order-boxes{
   display: flex;
+  justify-content: space-between;
+}
+.order-page label{
+  margin-top: 20px;
+  margin-bottom: 7px;
+  display: block;
 }
 .order-page__container{
   width: 544px;
@@ -13,14 +19,24 @@
   background: white;
   margin-right: 30px;
 }
-.operation-icons > *{
-  margin-left: 10px;
-}
+
 .order-list > li{
   cursor: default !important;
 }
 .order-list i{
   cursor: pointer;
+  margin-left: 10px;
+}
+.order-page__actions{
+  float: right;
+  margin-right: 10px;
+}
+.order-page__actions > *{
+  margin-right: 20px;
+}
+.order-page__alert{
+  display: inline-block;
+  color: red;
 }
 .order-page__search{
     width: 400px;

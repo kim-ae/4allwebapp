@@ -7,19 +7,25 @@
     <script type="text/javascript" th:src="@{/static/scripts/order.js}"></script>
 </head>
 <section th:fragment="page" class="order-page">
-    <input class="order-page__search" type="text" placeholder="Buscar..."></input>
+    <label for="order-page__search">Busca </label>
+    <input id="order-page__search" class="order-page__search" type="text" placeholder="Buscar..."></input>
     <div class="order-boxes">
         <div class="procuts-selection">
-            <div class="order-page__container products" th:attr="data-products-source=@{/products/get-all}"></div>
+            <label for="products">Produtos</label>
+            <div id="products" class="order-page__container products" th:attr="data-products-source=@{/products/get-all}"></div>
         </div>
         <div class="order-management">
-            <div class="order-page__container">
+            <label for="order">Pedido</label>
+            <div id="order" class="order-page__container">
                 <ul th:attr="data-action=@{/order/try-to-order},data-method='POST'" class="order-list">
                 </ul>
             </div>
         </div>
     </div>
-    <button class="request-order"> Fazer o Pedido </button>
+    <div class="order-page__actions">
+      <div class="fa fa-times-circle order-page__alert hide"></div>
+      <button class="request-order"> Fazer o Pedido </button>
+    </div>
     <div id="myModal" class="modal fade" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -41,7 +47,7 @@
           {{PRODUCT_NAME}}
           <div class='operation-icons'>
               <i class='fa fa-minus-square'></i>
-              <span>1</span>
+              qtd. <span>1</span>
               <i class='fa fa-plus-square'></i>
            </div>
       </li>

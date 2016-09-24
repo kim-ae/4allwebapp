@@ -12,6 +12,7 @@
 <body>
     <th:block th:replace="${view} :: page"></th:block>
     <script type="text/javascript" th:src="@{/static/scripts/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/static/scripts/alert.js}"></script>
     <script type="text/javascript" th:src="@{/static/scripts/bootstrap/bootstrap.min.js}"></script>
     <th:block th:include="${view} :: scripts" />
 </body>

@@ -12,7 +12,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
+import com.kimae.forallwebapp.business.OrderBusinessException;
 import com.kimae.forallwebapp.business.OrderStuff;
 import com.kimae.forallwebapp.configuration.ModelAndView;
 import com.kimae.forallwebapp.entity.OrderItem;
@@ -37,7 +39,12 @@ public class OrderController extends HtmlController {
     @POST
     @Path("/try-to-order")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void tryToOrder(List<OrderItem> itens){
-        orderBusiness.tryToOrder(itens);
+    public Response tryToOrder(List<OrderItem> itens) {
+        try {
+            orderBusiness.tryToOrder(itens);
+        } catch (OrderBusinessException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        }
+        return Response.ok().build();
     }
 }

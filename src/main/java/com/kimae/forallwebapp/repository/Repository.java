@@ -5,5 +5,5 @@ import java.util.List;
 public interface Repository<K, O> {
     public O findById(K id);
     public List<O> findAll();
-    public void save(O object);
+    public boolean save(O object);
 }
