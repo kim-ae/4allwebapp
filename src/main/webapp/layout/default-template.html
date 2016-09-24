@@ -3,32 +3,12 @@
     xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Order page</title>
-<!--     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    Favicon
-    <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}" />
-    Common styles
-    <link rel="stylesheet" type="text/css" th:href="@{/styles/common.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/styles/form.css}" />
-    View specific styles
-    <link rel="stylesheet" type="text/css" th:href="@{/styles/login-layout.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/static/content/base.css}" />
     <th:block th:include="${view} :: styles" />
-    Common scripts-->
-    <!-- <script type="text/javascript" th:src="@{/scripts/velocity.min.js}"></script>
-    <script type="text/javascript" th:src="@{/scripts/commonts.js}"></script>
-    <script type="text/javascript" th:src="@{/scripts/form.js}"></script>
-    View specific scripts
-    <script type="text/javascript" th:src="@{/scripts/login.js}"></script> -->
 </head>
 <body>
-    <div class="body">
-        <div class="page">
-            <div class="branding">
-            </div>
-            <div th:replace="${view} :: page"></div>
-        </div>
-    </div>
-    <script type="text/javascript" th:src="@{/scripts/jquery.js}"></script>
-    <th:block th:include="${view} :: scripts" /> 
+    <th:block th:replace="${view} :: page"></th:block>
+    <script type="text/javascript" th:src="@{/static/scripts/jquery.js}"></script>
+    <th:block th:include="${view} :: scripts" />
 </body>
 </html>

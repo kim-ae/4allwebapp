@@ -1,35 +1,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="styles">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/content/order.css}" />
 </head>
 <head th:fragment="scripts">
-    <script type="text/javascript" th:src="@{/scripts/order.js}"></script>
+    <script type="text/javascript" th:src="@{/static/scripts/order.js}"></script>
 </head>
-<body th:fragment="page">
-    <div class="order-container products" th:attr="data-product-source=@{/products/get-all}"></div>
-
-    <!-- <form class="login-form" name="login-form" method="post"
-        th:action="@{/login.json}">
-        <h2 class="form-header">Customer Login</h2>
-        <div class="form-body">
-            <div class="field-wrapper">
-                <label><input type="text" name="user-name"
-                    value="" placeholder="User Name" autocomplete="off" /></label>
-            </div>
-            <div class="field-wrapper">
-                <label><span /> <input type="password"
-                    name="password" value="" placeholder="Password"
-                    autocomplete="off" /></label>
-            </div>
+<section th:fragment="page" class="order-page">
+    <input class="order-page__search" type="input" placeholder="Buscar..."></input>
+    <div class="order-boxes">
+        <div class="procuts-selection">
+            <div class="order-page__container products" th:attr="data-products-source=@{/products/get-all}"></div>
         </div>
-        <div class="form-options">
-            <a th:href="@{/forgot-password}">Forgot Password</a> <a
-                th:href="@{/sign-up}">Sign Up</a>
+        <div class="order-management">
+            <div class="order-page__container"></div>
         </div>
-        <div class="form-footer">
-            <input type="submit" value="Login" /> <input type="reset"
-                value="Cancel" />
-        </div>
-    </form> -->
-</body>
+    </div>
+</section>
 </html>
