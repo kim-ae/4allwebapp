@@ -1,0 +1,14 @@
+.new-order{
+  display: inline-block;
+  float: right;
+}
+.time-content{
+  height: 400px;
+}
+.container li{
+  cursor: default !important;
+}
+
+.success-page__time{
+  font-size: 18px;
+}

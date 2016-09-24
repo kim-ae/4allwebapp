@@ -1,23 +1,11 @@
 .order-page > *{
   margin-bottom: 15px;
 }
-.order-boxes{
-  display: flex;
-  justify-content: space-between;
-}
+
 .order-page label{
   margin-top: 20px;
   margin-bottom: 7px;
   display: block;
-}
-.order-page__container{
-  width: 544px;
-  height: 400px;
-  overflow: auto;
-  border: 1px solid #d6d6d6;
-  border-radius: 5px;
-  background: white;
-  margin-right: 30px;
 }
 
 .order-list > li{
@@ -44,27 +32,7 @@
     padding: 10px 5px;
     border-radius: 1px;
 }
-.order-page__container > ul{
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-.order-page__container li{
-    padding: 8px 10px;
-    border-bottom: 1px solid #d6d6d6;
-    cursor: pointer;
-    -webkit-user-select: none; /* Chrome/Safari */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* IE10+ */
-}
-.order-page__container li >.operation-icons{
+.container li >.operation-icons{
   display: inline-block;
   float: right;s
-}
-
-.order-page__container.products li:last-child{
-  border-bottom: 0;
-}
-.order-page__container.products li:hover{
-  background: #f1f1f1;
 }

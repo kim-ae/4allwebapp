@@ -64,11 +64,14 @@ $(document).ready(function(){
 		})
 	})
 	$('.request-order').click(function(){
+		$that = $(this)
 		$.ajax({
 			url: $('.order-list').data('action'),
 			contentType: "application/json; charset=utf-8",
 			method: $('.order-list').data('method'),
 			data: JSON.stringify(getOrderItens())
+		}).done(function(response){
+			 window.location.href = $that.data('redirect-url') + "/" + response;
 		}).fail(function(response){
 			new Alert(response.responseText, '.order-page__alert');
 		})

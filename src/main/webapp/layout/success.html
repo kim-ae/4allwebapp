@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="styles">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/content/success.css}"></link>
+</head>
+<head th:fragment="scripts">
+    <script type="text/javascript" th:src="@{/static/scripts/success.js}"></script>
+</head>
+<section th:fragment="page" class="success-page">
+  <h2>Pedido realizadfo com sucesso!</h2>
+  <div class="flex-content">
+    <div class="container">
+      <ul>
+          <li th:each="item : ${itens}" th:text="|${item.quantity}x ${item.name}|"></li>
+      </ul>
+    </div>
+    <div>
+      <div class="time-content">
+          Previsão de entrega
+          <div clas="success-page__time" th:text="${timeToDeliver}"></div>
+      </div>
+      <a th:href="@{/order/}" class="button new-order">Novo Pedido</a>
+    </div>
+  </div>
+</section>
+</html>

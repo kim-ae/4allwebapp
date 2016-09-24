@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kimae.forallwebapp.utils.DataFormatter;
 import com.kimae.forallwebapp.utils.SerializationFormatter;
 
@@ -89,5 +90,10 @@ public class Order {
     }
     public Client getCliente(){
         return cliente;
+    }
+    
+    @JsonIgnore
+    public Date getRawDeliveryDate(){
+        return this.previsao_entrega;
     }
 }

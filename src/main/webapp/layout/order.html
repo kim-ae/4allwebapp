@@ -9,22 +9,22 @@
 <section th:fragment="page" class="order-page">
     <label for="order-page__search">Busca </label>
     <input id="order-page__search" class="order-page__search" type="text" placeholder="Buscar..."></input>
-    <div class="order-boxes">
+    <div class="flex-content">
         <div class="procuts-selection">
             <label for="products">Produtos</label>
-            <div id="products" class="order-page__container products" th:attr="data-products-source=@{/products/get-all}"></div>
+            <div id="products" class="container products" th:attr="data-products-source=@{/products/get-all}"></div>
         </div>
         <div class="order-management">
             <label for="order">Pedido</label>
-            <div id="order" class="order-page__container">
+            <div id="order" class="container">
                 <ul th:attr="data-action=@{/order/try-to-order},data-method='POST'" class="order-list">
                 </ul>
             </div>
+            <div class="order-page__actions">
+              <div class="fa fa-times-circle order-page__alert hide"></div>
+              <button th:attr="data-redirect-url=@{/order/success}" class="request-order button"> Fazer o Pedido </button>
+            </div>
         </div>
-    </div>
-    <div class="order-page__actions">
-      <div class="fa fa-times-circle order-page__alert hide"></div>
-      <button class="request-order"> Fazer o Pedido </button>
     </div>
     <div id="myModal" class="modal fade" role="dialog">
       <div class="modal-dialog" role="document">
