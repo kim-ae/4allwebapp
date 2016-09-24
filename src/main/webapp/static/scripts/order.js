@@ -5,6 +5,7 @@ function increment_quantity(element){
 		$element.data('quantity', quantity)
 		$element.find('.operation-icons span').html(quantity)
 }
+
 function decrement_quantity(element){
 	var $element = $(element)
 	var quantity = $element.data('quantity')
@@ -16,6 +17,7 @@ function decrement_quantity(element){
 		$element.find('.operation-icons span').html(quantity)
 	}
 }
+
 function getOrderItens(){
 	list = $('.order-list li').get().map(function(obj){
 		return {
@@ -26,6 +28,20 @@ function getOrderItens(){
 	})
 	return list;
 }
+
+function addItem($element){
+	var alreadyRegistered = $('.order-list').find('li').get().find(function(element){
+		return $(element).data('id') === $element.data('id')
+	})
+	if(alreadyRegistered == undefined){
+		$('.order-list').append($('.order-element-li').html().replace('{{PRODUCT_NAME}}',$element.text())
+																												 .replace('{{PRODUCT_ID}}', $element.data('id'))
+																												 .replace('{{PRODUCT_PRICE}}', $element.data('price')));
+	}else{
+		increment_quantity(alreadyRegistered)
+	}
+}
+
 $(document).ready(function(){
 
 		var dom = {
@@ -40,16 +56,7 @@ $(document).ready(function(){
 		dom.products.html(response);
 		dom.products.find('li').click(function(){
 			var $that = $(this)
-			var alreadyRegistered = $('.order-list').find('li').get().find(function(element){
-				return $(element).data('id') === $that.data('id')
-			})
-			if(alreadyRegistered == undefined){
-				$('.order-list').append($('.order-element-li').html().replace('{{PRODUCT_NAME}}',$that.text())
-																														 .replace('{{PRODUCT_ID}}', $that.data('id'))
-																													   .replace('{{PRODUCT_PRICE}}', $that.data('price')));
-			}else{
-				increment_quantity(alreadyRegistered)
-			}
+			addItem($that)
 		})
 	});
 
@@ -77,7 +84,13 @@ $(document).ready(function(){
 		})
 	})
 
-	dom.search.keyup(function(){
+	dom.search.keyup(function(e){
+			if(e.keyCode == 13){
+				var visibleElement = dom.products.find('li:visible')
+				if(visibleElement.length === 1){
+					addItem($(visibleElement));
+				}
+			}
 			var $that = $(this);
 			dom.products.find('li').each(function(element, value){
 				var $element = $(value);
