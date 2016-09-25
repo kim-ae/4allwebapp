@@ -1,3 +1,4 @@
+var ALERT_ELEMENT = '.order-page__alert';
 function increment_quantity(element){
     var $element = $(element)
     var quantity = $element.data('quantity')
@@ -74,17 +75,22 @@ $(document).ready(function(){
         })
     })
     dom.requestButton.click(function(){
-        $that = $(this)
-        $.ajax({
-            url: dom.orderList.data('action'),
-            contentType: "application/json; charset=utf-8",
-            method: dom.orderList.data('method'),
-            data: JSON.stringify(getOrderItens())
-        }).done(function(response){
-             window.location.href = $that.data('redirect-url') + "/" + response;
-        }).fail(function(response){
-            new Alert(response.responseText, '.order-page__alert');
-        })
+        var itens = getOrderItens();
+        if(itens == undefined || itens.length === 0){
+            new Alert("Por favor selecione pelo menos 1 item.", ALERT_ELEMENT);
+        }else{
+            var $that = $(this)
+            $.ajax({
+                url: dom.orderList.data('action'),
+                contentType: "application/json; charset=utf-8",
+                method: dom.orderList.data('method'),
+                data: JSON.stringify(itens)
+            }).done(function(response){
+                 window.location.href = $that.data('redirect-url') + "/" + response;
+            }).fail(function(response){
+                new Alert(response.responseText, ALERT_ELEMENT);
+            })
+        }
     })
 
     dom.search.keyup(function(e){

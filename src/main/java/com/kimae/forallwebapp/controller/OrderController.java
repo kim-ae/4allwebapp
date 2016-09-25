@@ -51,6 +51,9 @@ public class OrderController extends HtmlController {
     @Path("/try-to-order")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response tryToOrder(List<OrderItem> itens) {
+        if(itens == null || itens.isEmpty()){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Por favor selecione pelo menos 1 item. E por favor não desligue o javascript, ele é seu amiguinho").build();
+        }
         Integer orderId = null;
         try {
             orderId = orderBusiness.tryToOrder(itens);
