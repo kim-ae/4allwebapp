@@ -1,7 +1,13 @@
 body{
   background: #f1f1f1;
   color: #3c3c3b;
-  padding: 30px;
+  padding: 0px 30px;
+}
+
+.header-title{
+    border-bottom: 1px solid #79797a;
+    padding: 20px 30px;
+    font-variant: small-caps;
 }
 
 .button{

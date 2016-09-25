@@ -16,6 +16,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -25,6 +27,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 @Local
 public abstract class WebService {
 
+    private static Logger logger = LoggerFactory.getLogger(WebService.class);
     private final ObjectMapper mapper = new ObjectMapper();
     private final HttpClient client = HttpClientBuilder.create().build();
     
@@ -33,6 +36,7 @@ public abstract class WebService {
         this.mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         this.mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         this.mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        logger.info("Object mapper intinialized");
     }
     
     abstract String getRootUrl();
