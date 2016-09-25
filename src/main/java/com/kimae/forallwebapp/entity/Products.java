@@ -11,8 +11,9 @@ public class Products implements Serializable {
         return produtos;
     }
 
-    public void setProdutos(List<Product> produtos) {
+    public Products setProdutos(List<Product> produtos) {
         this.produtos = produtos;
+        return this;
     }
     
 }

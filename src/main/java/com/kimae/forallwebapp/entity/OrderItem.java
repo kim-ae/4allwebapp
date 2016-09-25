@@ -9,24 +9,27 @@ public class OrderItem {
         return preco;
     }
 
-    public void setPreco(Float preco) {
+    public OrderItem setPreco(Float preco) {
         this.preco = preco;
+        return this;
     }
 
     public Integer getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(Integer quantidade) {
+    public OrderItem setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
+        return this;
     }
 
     public Integer getSku() {
         return sku;
     }
 
-    public void setSku(Integer sku) {
+    public OrderItem setSku(Integer sku) {
         this.sku = sku;
+        return this;
     }
 
 }

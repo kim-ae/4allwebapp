@@ -14,31 +14,35 @@ public class OrderSaveStatus implements Serializable {
         return codigo;
     }
 
-    public void setCodigo(Integer codigo) {
+    public OrderSaveStatus setCodigo(Integer codigo) {
         this.codigo = codigo;
+        return this;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public OrderSaveStatus setStatus(String status) {
         this.status = status;
+        return this;
     }
 
     public String getMsg() {
         return msg;
     }
 
-    public void setMsg(String msg) {
+    public OrderSaveStatus setMsg(String msg) {
         this.msg = msg;
+        return this;
     }
 
     public Integer getId_pedido() {
         return id_pedido;
     }
 
-    public void setId_pedido(Integer id_pedido) {
+    public OrderSaveStatus setId_pedido(Integer id_pedido) {
         this.id_pedido = id_pedido;
+        return this;
     }
 }

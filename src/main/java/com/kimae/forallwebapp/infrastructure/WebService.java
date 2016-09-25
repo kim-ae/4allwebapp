@@ -41,7 +41,7 @@ public abstract class WebService {
     
     abstract String getRootUrl();
     
-    public Object call(String method, Class<? extends Serializable> returnType, Object parameter) throws UnsupportedCharsetException, ClientProtocolException, IOException{
+    public Object call(String method, Class<? extends Serializable> returnType, Object parameter) throws ClientProtocolException, IOException{
         HttpPost  request = new HttpPost (getRootUrl()+method);
         request.addHeader("Content-Type", "application/json");
         request.addHeader("Accept", "application/json");
