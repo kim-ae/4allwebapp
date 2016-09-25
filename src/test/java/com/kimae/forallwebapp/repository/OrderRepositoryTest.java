@@ -31,8 +31,6 @@ public class OrderRepositoryTest {
     @Before
     public void setup() throws UnsupportedCharsetException, ClientProtocolException, IOException{
         MockitoAnnotations.initMocks(this);
-        
-        
     }
     
     @Test
