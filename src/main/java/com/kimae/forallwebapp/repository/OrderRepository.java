@@ -20,11 +20,11 @@ public class OrderRepository implements Repository<Integer, Order> {
     @EJB
     private ForAllWebService webService;
     private static final String SAVE_METHOD = "setPedido";
-    private Map<Integer, Order> orders = new HashMap<>();
+    private Map<Integer, Order> ordersCache = new HashMap<>();
 
     @Override
     public Order findById(Integer id) {
-        return orders.get(id);
+        return ordersCache.get(id);
     }
 
     @Override
@@ -39,12 +39,10 @@ public class OrderRepository implements Repository<Integer, Order> {
             OrderSaveStatus status = (OrderSaveStatus)webService.call(SAVE_METHOD, OrderSaveStatus.class, order);
             saved = status.getStatus().equals("OK");
             if(saved){
-                orders.put(order.getId_pedido(), order);
+                ordersCache.put(order.getId_pedido(), order);
             }
         } catch (UnsupportedCharsetException | IOException e) {
-            //TODO: REMOVE THIS PLS.
-            orders.put(order.getId_pedido(), order);
-            return true;
+            return false;
         }
         return saved;
     }

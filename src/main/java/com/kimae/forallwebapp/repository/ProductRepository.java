@@ -24,14 +24,14 @@ public class ProductRepository implements Repository<Integer, Product> {
     private ForAllWebService webService;
     private static final String GET_ALL_METHOD = "getProdutos";
     private static final Map<String, String> AUTH_KEY = MapFactory.createOf("authkey", "hello123");
-    private List<Product> products;
+    private List<Product> productsCache;
 
     @Override
     public Product findById(Integer id) {
-        if(products == null){
+        if(productsCache == null){
             findAll();
         }
-        for(Iterator<Product> iter = products.iterator() ; iter.hasNext();){
+        for(Iterator<Product> iter = productsCache.iterator() ; iter.hasNext();){
             Product product = iter.next();
             if(product.getSku().equals(id)){
                 return product;
@@ -43,13 +43,17 @@ public class ProductRepository implements Repository<Integer, Product> {
     @Override
     public List<Product> findAll() {
         try {
-            if(products == null){
-                products = ((Products)webService.call(GET_ALL_METHOD, Products.class, AUTH_KEY)).getProdutos();
+            if(productsCache == null){
+                productsCache = ((Products)webService.call(GET_ALL_METHOD, Products.class, AUTH_KEY)).getProdutos();
             }
-            return products;
+            return productsCache;
         } catch (UnsupportedCharsetException | IOException e) {
             return new ArrayList<>();
         }
+    }
+    
+    public void invalidateCache(){
+        productsCache = null;
     }
 
     @Override
