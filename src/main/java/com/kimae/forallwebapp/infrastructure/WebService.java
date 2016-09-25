@@ -7,6 +7,9 @@ import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.Local;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -19,27 +22,27 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-public class WebService {
+@Local
+public abstract class WebService {
 
-    private final String rootUrl;
     private final ObjectMapper mapper = new ObjectMapper();
+    private final HttpClient client = HttpClientBuilder.create().build();
     
-    private WebService(String rootUrl){
-        this.rootUrl = rootUrl;
-        initializeObjectMapper();
+    @PostConstruct
+    public void initialize(){
+        this.mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        this.mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        this.mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
     }
     
+    abstract String getRootUrl();
+    
     public Object call(String method, Class<? extends Serializable> returnType, Object parameter) throws UnsupportedCharsetException, ClientProtocolException, IOException{
-        HttpClient client = HttpClientBuilder.create().build();
-        HttpPost  request = new HttpPost (rootUrl+method);
+        HttpPost  request = new HttpPost (getRootUrl()+method);
         request.addHeader("Content-Type", "application/json");
         request.addHeader("Accept", "application/json");
         request.setEntity(new StringEntity(mapper.writeValueAsString(parameter),"UTF-8"));
         return deserializeReturn(client.execute(request), returnType);
-    }
-    
-    public static WebService get4AllWebService(){
-        return new WebService("http://homolog.delivery.all4mobile.com.br/api/v1/");
     }
     
     private Object deserializeReturn(HttpResponse response, Class<? extends Serializable> returnType) throws IllegalStateException, IOException{
@@ -52,12 +55,5 @@ public class WebService {
             result.append(line);
         }
         return mapper.readValue(result.toString(), returnType);
-    }
-
-    private void initializeObjectMapper(){
-        this.mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        this.mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        this.mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        
     }
 }
